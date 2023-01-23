@@ -1,26 +1,60 @@
 package Invoicing;
 
-import java.util.HashMap;
+
+
+//import MainTest.Invoice;
 
 public class Items {
-	public static void main(String[] args) {
-		HashMap<String, Float> price=new HashMap<>();
-		price.put("Water package 1.5L",(float) 1 );
-		price.put("Bread",(float) 0.200 );
-		price.put("juce", (float) 0.500);
-		price.put("Detol",(float) 2);
-		
-		System.out.println("Each Itemes with price in OR:"+price);
-		
-//		void unitPrice() {
-//			
-//		}
-		
-		
-		
-		}
+
+	private String itemsName;
+
+	private Integer id;
+	private  double unitPrice;
+	private  double quntety;
 	
+	
+	
+	public double getUnitPrice() {
+		return unitPrice;
+	}
+	public void setUnitPrice(double unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+	public double getQuntety() {
+		return quntety;
+	}
+	public void setQuntety(double quntety) {
+		this.quntety = quntety;
+	}
+	private	void unitPrice() {
+		
+	}
+	private void quntety() {
+		
+	}
+
+	
+		
+
+
+	public String getItemsName() {
+		return itemsName;
+	}
+
+	public void setItemsName(String itemsName) {
+		this.itemsName = itemsName;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 
+	    }
+	    
+	
 
