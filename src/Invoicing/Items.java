@@ -1,57 +1,50 @@
 package Invoicing;
 
-
+import java.io.Serializable;
 
 //import MainTest.Invoice;
 
-public class Items {
+public class Items implements Serializable{
 
-	private String itemsName;
-
-	private Integer id;
-	private  double unitPrice;
-	private  double quntety;
-	
-	
-	
-	public double getUnitPrice() {
-		return unitPrice;
-	}
-	public void setUnitPrice(double unitPrice) {
-		this.unitPrice = unitPrice;
-	}
-	public double getQuntety() {
-		return quntety;
-	}
-	public void setQuntety(double quntety) {
-		this.quntety = quntety;
-	}
-	private	void unitPrice() {
-		
-	}
-	private void quntety() {
-		
-	}
-
-	
-		
-
-
-	public String getItemsName() {
-		return itemsName;
-	}
-
-	public void setItemsName(String itemsName) {
-		this.itemsName = itemsName;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+		private static final long serialVersionUID = 1L;
+		private String itemName;
+		private Integer itemId;
+		private double itemprice;
+		private Integer stock;
+		private Integer quantity;
+		public String getItemName() {
+			return itemName;
+		}
+		public void setItemName(String itemName) {
+			this.itemName = itemName;
+		}
+		public Integer getItemId() {
+			return itemId;
+		}
+		public void setItemId(Integer itemId) {
+			this.itemId = itemId;
+		}
+		public double getItemprice() {
+			return itemprice;
+		}
+		public void setItemprice(double itemprice) {
+			this.itemprice = itemprice;
+		}
+		public Integer getStock() {
+			return stock;
+		}
+		public void setStock(Integer stock) {
+			this.stock = stock;
+		}
+		public Integer getQuantity() {
+			return quantity;
+		}
+		public void setQuantity(Integer quantity) {
+			this.quantity = quantity;
+		}
+		public static long getSerialversionuid() {
+			return serialVersionUID;
+		}
 
 
 	    }
