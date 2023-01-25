@@ -1,13 +1,18 @@
 package Invoicing;
 
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+
+
+
 
 //import testtesttt.Items;
 
@@ -48,7 +53,7 @@ public static void main(String[] args) {
         	printAllInvoices(); //** not yet done **//
         case 6:
         	//search Invoice
-        	searchInvoice(); //** not yet done **//
+        	searchInvoice(); //
         case 7:
         	//Program Statistics
         	programStatistics(); //** not yet done **//
@@ -153,7 +158,7 @@ private static void settingsMenu() {
 	        Scanner sc = new Scanner(System.in);
 	        int select = sc.nextInt();
 	        
-	        // add new item
+	     // add new item
 	        if(select == 1) {
 	        	
 	        	//ask user to enter item data
@@ -179,6 +184,7 @@ private static void settingsMenu() {
 				main.items.add(newitem);
 				saveItems();
 				System.out.println("New Item Saved");
+				
 				
 				//delete item
 	        }else if(select == 2) {
@@ -394,9 +400,11 @@ private static void settingsMenu() {
 	    	while (!checkout) {
 	    		System.out.println("Select Item: ");
 	    		
+	    		//print all items list
 	    		for(Items item : main.items) {
 	    			System.out.format("ID:%d Name:%s\r\n",item.getItemId(), item.getItemName());
 	    		}
+	    		
 	    		int itemId = sc.nextInt();
 	    		
 	    		System.out.println("Enter Quantity: ");
@@ -405,9 +413,11 @@ private static void settingsMenu() {
 	    		//search for the item and add it to invoice items + set quantity
 	    		for(int i=0 ; i < main.items.size(); i++) {
 	    			if(main.items.get(i).getItemId() == itemId) {
+	    				
 	    				Items newItem = main.items.get(i);
 	    				newItem.setQuantity(itemQuantity);
 	    				newInvoiceItems.add(main.items.get(i));
+	    				
 	    			}
 	    		}
 	        	
@@ -422,20 +432,18 @@ private static void settingsMenu() {
 	    	
 	    	//calculate total price and items 
 	    	double totalAmount = 0;
-	    	int noOfItems = 0;
 	    	
 	    	for(int i=0 ; i < newInvoiceItems.size(); i++) {
 	    		//price = item price * quantity
-	    		totalAmount = ( newInvoiceItems.get(i).getItemprice() * newInvoiceItems.get(i).getQuantity());
-	    		noOfItems = 1;
+	    		totalAmount += ( newInvoiceItems.get(i).getItemprice() * newInvoiceItems.get(i).getQuantity());
 			}
 	    	
 	    	// save items to the invoice
-	    	newInvoice.setItemsList(newInvoiceItems);
+			newInvoice.setItemsList(newInvoiceItems);
 			
 
 			//save total price and quantity to invoice
-			newInvoice.setNoOfItems(noOfItems);
+			newInvoice.setNoOfItems(newInvoiceItems.size());
 	    	newInvoice.setTotalAmount(totalAmount);
 	    	
 	    	System.out.format("Total Amount:%f\r\n",newInvoice.getTotalAmount());
@@ -449,6 +457,7 @@ private static void settingsMenu() {
 			newInvoice.setPaymentPrice(remaining);
 			
 			System.out.format("you should return:%f to the customer\r\n",remaining);
+
 			
 			//add new invoice to the list
 			main.invoices.add(newInvoice);
@@ -460,24 +469,67 @@ private static void settingsMenu() {
 			main(null);
 		}
 
+
 		//Report: Statistics
 		private static void statistics() {
-			// code here
+			System.out.println("Number of Items: " + main.items.size());
 			
+			System.out.println("Number of Invoices: " + + main.invoices.size());
+			
+			
+			
+			double total = 0;
+			for(int i = 0; i < main.invoices.size(); i++ ) {
+				total += main.invoices.get(i).getTotalAmount();
+			
+			}
+			
+			System.out.println("Total Sales:" + total);
+			
+	
 			main(null);
 		}
 
 		//All Invoices
 		private static void printAllInvoices() {
-			// code here
+			for(Invoice invoice : main.invoices ) {
+				
+				System.out.format("#%s | Date:%s | Customer Name:%s | Customer Number:%s  | Price:%s \r\n", invoice.getInvoiceNo(), invoice.getInvoiceDate(), invoice.getCustomerName(), invoice.getCustomerNumber(), invoice.getTotalAmount());
+				
+				for(Items item : invoice.getItemsList() ) {
+					System.out.format("---- #%d | Name:%s | Price:%f | Quantity:%d | Total:%f \r\n", item.getItemId(), item.getItemName(), item.getItemprice(), item.getQuantity(), (item.getItemprice()*item.getQuantity()) );
+				}
+			}
+			
+		
 			
 			main(null);
 		}
 
 		//search Invoice
 		private static void searchInvoice() {
-			// code here
+			Scanner sc = new Scanner(System.in);
 			
+			System.out.println("Enter Invoice Number:");
+			int invoiceNumber = sc.nextInt();
+			
+			boolean found = false;
+			for(Invoice invoice : main.invoices ) {
+				
+				if(invoice.getInvoiceNo() == invoiceNumber) {	
+					found = true;
+					System.out.format("#%s | Date:%s | Customer Name:%s | Customer Number:%s  | Price:%s \r\n", invoice.getInvoiceNo(), invoice.getInvoiceDate(), invoice.getCustomerName(), invoice.getCustomerNumber(), invoice.getTotalAmount());
+					
+					for(Items item : invoice.getItemsList() ) {
+						System.out.format("---- #%d | Name:%s | Price:%f | Quantity:%d | Total:%f \r\n", item.getItemId(), item.getItemName(), item.getItemprice(), item.getQuantity(), (item.getItemprice()*item.getQuantity()) );
+					}
+					break;
+				}
+			}
+			
+			if(!found) {
+				System.out.println("Invoice Not Found!");
+			}
 			main(null);
 		}
 
