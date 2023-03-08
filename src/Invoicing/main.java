@@ -577,7 +577,9 @@ private static void settingsMenu() {
 				menu.put("case 7",0 );
 				menu.put("case 8",0 );
 			}
+		
 		}
+		
 }
 
 	
