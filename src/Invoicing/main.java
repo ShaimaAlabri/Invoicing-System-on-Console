@@ -69,7 +69,7 @@ public static void main(String[] args) {
         case 7:
         	menu.put("case 7", menu.get("case 7")+1);
         	//Program Statistics
-        	programStatistics(); //** not yet done **//
+        	programStatistics(); 
         case 8:
         	//exit
         	menu.put("case 8", menu.get("case 8")+1);
