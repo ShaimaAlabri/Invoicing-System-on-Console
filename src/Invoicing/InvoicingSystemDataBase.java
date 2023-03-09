@@ -39,7 +39,37 @@ public class InvoicingSystemDataBase {
 //			 st.execute(sql);
 //			 ResultSet resultSet = st.executeQuery(sql1);
 //			 System.out.println("Done");
-			 
+	private static void createTable() {
+		String url = "jdbc:sqlserver://localhost:1433;databaseName=InvoicingSystem;encrypt=true;trustServerCertificate=true";
+
+		 Connection con = null;
+		 System.out.println("System is in prograss:");
+		 try {
+		 // create a new table
+		 Driver driver = (Driver) Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+		 DriverManager.registerDriver(driver);
+		 con = DriverManager.getConnection(url, "sa", "root");
+		 Statement st = con.createStatement();
+		 
+		 Scanner sc = new Scanner(System.in);
+		    int select = sc.nextInt();
+		    if (select==1) {
+		    	
+		    	 String sql1= "Create table shop ("
+						 + " shop_Name text not null,"
+						 + " phone_Number Integer not null ,"
+						 + " faxNo Integer not null,"
+						 + " email text not null, "
+						 + " website text not null "
+						 + ");";
+		    	 System.out.println("databas craeted");
+		st.execute(sql1);
+		    	con.close();
+		    }
+			}catch (Exception e) {
+				System.err.println(e);
+		 }
+	}
 			 public static HashMap<String, Integer> menu = new HashMap<String, Integer>();
 
 				public static ArrayList<Invoice> invoices = new ArrayList<Invoice>();
@@ -47,6 +77,17 @@ public class InvoicingSystemDataBase {
 				public static Shope shope=new Shope();
 				
 			public static void main(String[] args) {
+				 Scanner scanner = new Scanner(System.in);
+				 System.out.println("enter user");
+				 String user = scanner.nextLine();
+				 System.out.println(user);
+				 System.out.println("enter pass");
+				 String pass = scanner.nextLine();
+				 System.out.println(pass);
+
+				 if (user.equals(user) && pass.equals(pass)) {}else {
+				 System.out.println("worng username and password ");
+				 }
 				
 				option();
 				printMenu(1);
@@ -175,8 +216,11 @@ public class InvoicingSystemDataBase {
 					System.out.println("Enter website:");
 					String Website = sc.next();
 					main.shope.setWebsite(Website);
+					
 					 String sql = "INSERT INTO Shop (shop_Name, phone_Number,faxNo ,email,website)"+
 			                    "VALUES ("+"'"+shope.getShopName()+"','"+shope.getPhoneNumber()+"','"+shope.getFaxNo()+"','"+shope.getEmail()+"','"+shope.getWebsite()+ "')";
+					 createTable();
+					 
 					saveSettings();
 					System.out.println("New Shop Data Saved");
 
@@ -602,45 +646,5 @@ public class InvoicingSystemDataBase {
 						}
 					
 					}
-					private static void createTable() {
-						String url = "jdbc:sqlserver://localhost:1433;databaseName=InvoicingSystem;encrypt=true;trustServerCertificate=true";
-						 Scanner scanner = new Scanner(System.in);
-						 System.out.println("enter user");
-						 String user = scanner.nextLine();
-						 System.out.println(user);
-						 System.out.println("enter pass");
-						 String pass = scanner.nextLine();
-						 System.out.println(pass);
-
-						 if (user.equals(user) && pass.equals(pass)) {}else {
-						 System.out.println("worng username and password ");
-						 }
-						 Connection con = null;
-						 System.out.println("System is in prograss:");
-						 try {
-						 // create a new table
-						 Driver driver = (Driver) Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-						 DriverManager.registerDriver(driver);
-						 con = DriverManager.getConnection(url, "sa", "root");
-						 Statement st = con.createStatement();
-						 
-						 Scanner sc = new Scanner(System.in);
-						    int select = sc.nextInt();
-						    if (select==1) {
-						    	
-						    	 String sql1= "Create table shop ("
-										 + " shop_Name text not null,"
-										 + " phone_Number Integer not null ,"
-										 + " faxNo Integer not null,"
-										 + " email text not null, "
-										 + " website text not null "
-										 + ");";
-						    	 System.out.println("databas craeted");
-						
-						    	con.close();
-						    }
-							}catch (Exception e) {
-								System.err.println(e);
-						 }
-					}
+					
 }
